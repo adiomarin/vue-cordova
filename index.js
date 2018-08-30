@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog'];
 
 	exports.install = function (Vue, options) {
 
@@ -99,7 +99,9 @@ module.exports =
 		"./cordova-plugin-inappbrowser": 7,
 		"./cordova-plugin-inappbrowser.js": 7,
 		"./cordova-plugin-sms": 8,
-		"./cordova-plugin-sms.js": 8
+		"./cordova-plugin-sms.js": 8,
+		"./cordova-plugin-spinner-dialog": 9,
+		"./cordova-plugin-spinner-dialog.js": 9
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -265,6 +267,26 @@ module.exports =
 
 	        // pass through the sms object
 	        Vue.cordova.sms = window.sms;
+
+	        return cb(true);
+	    }, false);
+	};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	    document.addEventListener('deviceready', function () {
+
+	        if (typeof cordova.SpinnerDialog === 'undefined') {
+	            return cb(false);
+	        }
+
+	        // pass through the SpinnerDialog object
+	        Vue.cordova.SpinnerDialog = cordova.SpinnerDialog;
 
 	        return cb(true);
 	    }, false);
