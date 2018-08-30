@@ -280,16 +280,16 @@ module.exports =
 
 	exports.install = function (Vue, options, cb) {
 	  document.addEventListener('deviceready', function () {
-	    console.log('Window', window);
-	    console.log('Window.plugins', window.plugins);
-	    console.log('navigator', navigator);
+	    // console.log('Window', window)
+	    // console.log('Window.plugins', window.plugins)
+	    // console.log('navigator', navigator)
 
-	    if (typeof window.SpinnerDialog === 'undefined') {
+	    if (typeof window.plugins.spinnerDialog === 'undefined') {
 	      return cb(false);
 	    }
 
 	    // pass through the SpinnerDialog object
-	    Vue.cordova.SpinnerDialog = window.SpinnerDialog;
+	    Vue.cordova.spinnerDialog = window.plugins.spinnerDialog;
 
 	    return cb(true);
 	  }, false);
