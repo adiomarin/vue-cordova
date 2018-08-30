@@ -279,17 +279,20 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
+	    console.log('Window', window);
+	    console.log('Window.plugins', window.plugins);
+	    console.log('navigator', navigator);
 
-	        if (typeof cordova.SpinnerDialog === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof window.SpinnerDialog === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the SpinnerDialog object
-	        Vue.cordova.SpinnerDialog = cordova.SpinnerDialog;
+	    // pass through the SpinnerDialog object
+	    Vue.cordova.SpinnerDialog = window.SpinnerDialog;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ })
