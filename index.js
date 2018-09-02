@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification'];
 
 	exports.install = function (Vue, options) {
 
@@ -102,10 +102,12 @@ module.exports =
 		"./cordova-plugin-geolocation.js": 8,
 		"./cordova-plugin-inappbrowser": 9,
 		"./cordova-plugin-inappbrowser.js": 9,
-		"./cordova-plugin-sms": 10,
-		"./cordova-plugin-sms.js": 10,
-		"./cordova-plugin-spinner-dialog": 11,
-		"./cordova-plugin-spinner-dialog.js": 11
+		"./cordova-plugin-progress-notification": 10,
+		"./cordova-plugin-progress-notification.js": 10,
+		"./cordova-plugin-sms": 11,
+		"./cordova-plugin-sms.js": 11,
+		"./cordova-plugin-spinner-dialog": 12,
+		"./cordova-plugin-spinner-dialog.js": 12
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -302,6 +304,25 @@ module.exports =
 
 	exports.install = function (Vue, options, cb) {
 	  document.addEventListener('deviceready', function () {
+	    if (typeof window.progressNotification === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the progressNotification object
+	    Vue.cordova.progressNotification = window.progressNotification;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
 
 	    if (typeof window.sms === 'undefined') {
 	      return cb(false);
@@ -315,7 +336,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict';
