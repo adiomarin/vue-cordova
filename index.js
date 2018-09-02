@@ -305,7 +305,7 @@ module.exports =
 	    // console.log('Window.plugins', window.plugins)
 	    // console.log('navigator', navigator)
 
-	    if (typeof window.plugins.spinnerDialog === 'undefined') {
+	    if (typeof window.plugins === 'undefined' || typeof window.plugins.spinnerDialog === 'undefined') {
 	      return cb(false);
 	    }
 
