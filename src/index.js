@@ -10,7 +10,8 @@ const pluginsList = [
   'cordova-plugin-spinner-dialog',
   'cordova-plugin-file-downloader',
   'cordova-plugin-file',
-  'cordova-plugin-progress-notification'
+  'cordova-plugin-progress-notification',
+  'cordova-plugin-file-opener2'
 ]
 
 exports.install = (Vue, options) => {
