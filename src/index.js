@@ -7,7 +7,8 @@ const pluginsList = [
   'cordova-plugin-chrome-apps-sockets-tcp',
   'cordova-plugin-sms',
   'cordova-plugin-inappbrowser',
-  'cordova-plugin-spinner-dialog'
+  'cordova-plugin-spinner-dialog',
+  'cordova-plugin-file-downloader'
 ]
 
 exports.install = (Vue, options) => {
