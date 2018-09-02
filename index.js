@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file'];
 
 	exports.install = function (Vue, options) {
 
