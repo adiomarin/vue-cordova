@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy'];
 
 	exports.install = function (Vue, options) {
 
@@ -106,10 +106,14 @@ module.exports =
 		"./cordova-plugin-inappbrowser.js": 10,
 		"./cordova-plugin-progress-notification": 11,
 		"./cordova-plugin-progress-notification.js": 11,
-		"./cordova-plugin-sms": 12,
-		"./cordova-plugin-sms.js": 12,
-		"./cordova-plugin-spinner-dialog": 13,
-		"./cordova-plugin-spinner-dialog.js": 13
+		"./cordova-plugin-request-location-accuracy": 12,
+		"./cordova-plugin-request-location-accuracy.js": 12,
+		"./cordova-plugin-sms": 13,
+		"./cordova-plugin-sms.js": 13,
+		"./cordova-plugin-spinner-dialog": 14,
+		"./cordova-plugin-spinner-dialog.js": 14,
+		"./cordova.plugins.diagnostic": 15,
+		"./cordova.plugins.diagnostic.js": 15
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -343,6 +347,25 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
+	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.locationAccuracy === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the locationAccuracy object
+	    Vue.cordova.locationAccuracy = window.cordova.plugins.locationAccuracy;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
 	    document.addEventListener('deviceready', function () {
 
 	        if (typeof window.sms === 'undefined') {
@@ -357,7 +380,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -374,6 +397,25 @@ module.exports =
 
 	    // pass through the SpinnerDialog object
 	    Vue.cordova.spinnerDialog = window.plugins.spinnerDialog;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
+	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.diagnostic === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the diagnostic object
+	    Vue.cordova.diagnostic = window.cordova.plugins.diagnostic;
 
 	    return cb(true);
 	  }, false);
