@@ -13,7 +13,8 @@ const pluginsList = [
   'cordova-plugin-progress-notification',
   'cordova-plugin-file-opener2',
   'cordova.plugins.diagnostic',
-  'cordova-plugin-request-location-accuracy'
+  'cordova-plugin-request-location-accuracy',
+  'cordova-plugin-local-notification'
 ]
 
 exports.install = (Vue, options) => {

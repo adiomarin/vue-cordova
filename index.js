@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification'];
 
 	exports.install = function (Vue, options) {
 
@@ -104,16 +104,18 @@ module.exports =
 		"./cordova-plugin-geolocation.js": 9,
 		"./cordova-plugin-inappbrowser": 10,
 		"./cordova-plugin-inappbrowser.js": 10,
-		"./cordova-plugin-progress-notification": 11,
-		"./cordova-plugin-progress-notification.js": 11,
-		"./cordova-plugin-request-location-accuracy": 12,
-		"./cordova-plugin-request-location-accuracy.js": 12,
-		"./cordova-plugin-sms": 13,
-		"./cordova-plugin-sms.js": 13,
-		"./cordova-plugin-spinner-dialog": 14,
-		"./cordova-plugin-spinner-dialog.js": 14,
-		"./cordova.plugins.diagnostic": 15,
-		"./cordova.plugins.diagnostic.js": 15
+		"./cordova-plugin-local-notification": 11,
+		"./cordova-plugin-local-notification.js": 11,
+		"./cordova-plugin-progress-notification": 12,
+		"./cordova-plugin-progress-notification.js": 12,
+		"./cordova-plugin-request-location-accuracy": 13,
+		"./cordova-plugin-request-location-accuracy.js": 13,
+		"./cordova-plugin-sms": 14,
+		"./cordova-plugin-sms.js": 14,
+		"./cordova-plugin-spinner-dialog": 15,
+		"./cordova-plugin-spinner-dialog.js": 15,
+		"./cordova.plugins.diagnostic": 16,
+		"./cordova.plugins.diagnostic.js": 16
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -329,6 +331,25 @@ module.exports =
 
 	exports.install = function (Vue, options, cb) {
 	  document.addEventListener('deviceready', function () {
+	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.notification.local === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the diagnostic object
+	    Vue.cordova.localNotification = window.cordova.plugins.notification.local;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
 	    if (typeof window.progressNotification === 'undefined') {
 	      return cb(false);
 	    }
@@ -341,7 +362,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -360,7 +381,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -380,7 +401,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -403,7 +424,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	'use strict';
