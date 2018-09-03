@@ -5,7 +5,7 @@ exports.install = function (Vue, options, cb) {
     }
 
     // pass through the file object
-    Vue.cordova.fileOpener2 = window.cordova.window.cordova.plugins.fileOpener2
+    Vue.cordova.fileOpener2 = window.cordova.plugins.fileOpener2
 
     return cb(true)
 
