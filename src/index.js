@@ -11,7 +11,9 @@ const pluginsList = [
   'cordova-plugin-file-downloader',
   'cordova-plugin-file',
   'cordova-plugin-progress-notification',
-  'cordova-plugin-file-opener2'
+  'cordova-plugin-file-opener2',
+  'cordova.plugins.diagnostic',
+  'cordova-plugin-request-location-accuracy'
 ]
 
 exports.install = (Vue, options) => {
