@@ -331,12 +331,12 @@ module.exports =
 
 	exports.install = function (Vue, options, cb) {
 	  document.addEventListener('deviceready', function () {
-	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.notification.local === 'undefined') {
+	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.notification === 'undefined') {
 	      return cb(false);
 	    }
 
 	    // pass through the diagnostic object
-	    Vue.cordova.localNotification = window.cordova.plugins.notification.local;
+	    Vue.cordova.notification = window.cordova.plugins.notification;
 
 	    return cb(true);
 	  }, false);
