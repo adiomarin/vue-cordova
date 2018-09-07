@@ -14,7 +14,9 @@ const pluginsList = [
   'cordova-plugin-file-opener2',
   'cordova.plugins.diagnostic',
   'cordova-plugin-request-location-accuracy',
-  'cordova-plugin-local-notification'
+  'cordova-plugin-local-notification',
+  'cordova-plugin-googleplus',
+  'cordova-plugin-facebook4'
 ]
 
 exports.install = (Vue, options) => {

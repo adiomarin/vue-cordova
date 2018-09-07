@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification', 'cordova-plugin-googleplus', 'cordova-plugin-facebook4'];
 
 	exports.install = function (Vue, options) {
 
@@ -94,28 +94,32 @@ module.exports =
 		"./cordova-plugin-contacts.js": 4,
 		"./cordova-plugin-device": 5,
 		"./cordova-plugin-device.js": 5,
-		"./cordova-plugin-file": 6,
-		"./cordova-plugin-file-downloader": 7,
-		"./cordova-plugin-file-downloader.js": 7,
-		"./cordova-plugin-file-opener2": 8,
-		"./cordova-plugin-file-opener2.js": 8,
-		"./cordova-plugin-file.js": 6,
-		"./cordova-plugin-geolocation": 9,
-		"./cordova-plugin-geolocation.js": 9,
-		"./cordova-plugin-inappbrowser": 10,
-		"./cordova-plugin-inappbrowser.js": 10,
-		"./cordova-plugin-local-notification": 11,
-		"./cordova-plugin-local-notification.js": 11,
-		"./cordova-plugin-progress-notification": 12,
-		"./cordova-plugin-progress-notification.js": 12,
-		"./cordova-plugin-request-location-accuracy": 13,
-		"./cordova-plugin-request-location-accuracy.js": 13,
-		"./cordova-plugin-sms": 14,
-		"./cordova-plugin-sms.js": 14,
-		"./cordova-plugin-spinner-dialog": 15,
-		"./cordova-plugin-spinner-dialog.js": 15,
-		"./cordova.plugins.diagnostic": 16,
-		"./cordova.plugins.diagnostic.js": 16
+		"./cordova-plugin-facebook4": 6,
+		"./cordova-plugin-facebook4.js": 6,
+		"./cordova-plugin-file": 7,
+		"./cordova-plugin-file-downloader": 8,
+		"./cordova-plugin-file-downloader.js": 8,
+		"./cordova-plugin-file-opener2": 9,
+		"./cordova-plugin-file-opener2.js": 9,
+		"./cordova-plugin-file.js": 7,
+		"./cordova-plugin-geolocation": 10,
+		"./cordova-plugin-geolocation.js": 10,
+		"./cordova-plugin-googleplus": 11,
+		"./cordova-plugin-googleplus.js": 11,
+		"./cordova-plugin-inappbrowser": 12,
+		"./cordova-plugin-inappbrowser.js": 12,
+		"./cordova-plugin-local-notification": 13,
+		"./cordova-plugin-local-notification.js": 13,
+		"./cordova-plugin-progress-notification": 14,
+		"./cordova-plugin-progress-notification.js": 14,
+		"./cordova-plugin-request-location-accuracy": 15,
+		"./cordova-plugin-request-location-accuracy.js": 15,
+		"./cordova-plugin-sms": 16,
+		"./cordova-plugin-sms.js": 16,
+		"./cordova-plugin-spinner-dialog": 17,
+		"./cordova-plugin-spinner-dialog.js": 17,
+		"./cordova.plugins.diagnostic": 18,
+		"./cordova.plugins.diagnostic.js": 18
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -233,6 +237,26 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
+	    document.addEventListener('deviceready', function () {
+
+	        if (typeof window.facebookConnectPlugin === 'undefined') {
+	            return cb(false);
+	        }
+
+	        // pass through the facebookConnectPlugin object
+	        Vue.cordova.facebookConnectPlugin = window.facebookConnectPlugin;
+
+	        return cb(true);
+	    }, false);
+	};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
 	  document.addEventListener('deviceready', function () {
 	    if (typeof window.cordova === 'undefined' || typeof window.cordova.file === 'undefined') {
 	      return cb(false);
@@ -246,7 +270,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -265,7 +289,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -284,7 +308,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -304,7 +328,26 @@ module.exports =
 	};
 
 /***/ }),
-/* 10 */
+/* 11 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
+	    if (typeof window.plugins === 'undefined' || typeof window.plugins.googleplus === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the googleplus object
+	    Vue.cordova.googleplus = window.plugins.googleplus;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -324,7 +367,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -343,7 +386,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -362,7 +405,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -381,7 +424,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -401,7 +444,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -424,7 +467,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	'use strict';
