@@ -16,7 +16,8 @@ const pluginsList = [
   'cordova-plugin-request-location-accuracy',
   'cordova-plugin-local-notification',
   'cordova-plugin-googleplus',
-  'cordova-plugin-facebook4'
+  'cordova-plugin-facebook4',
+  'cordova-plugin-calendar'
 ]
 
 exports.install = (Vue, options) => {

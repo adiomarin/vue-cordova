@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification', 'cordova-plugin-googleplus', 'cordova-plugin-facebook4'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification', 'cordova-plugin-googleplus', 'cordova-plugin-facebook4', 'cordova-plugin-calendar'];
 
 	exports.install = function (Vue, options) {
 
@@ -86,40 +86,42 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./cordova-plugin-camera": 2,
-		"./cordova-plugin-camera.js": 2,
-		"./cordova-plugin-chrome-apps-sockets-tcp": 3,
-		"./cordova-plugin-chrome-apps-sockets-tcp.js": 3,
-		"./cordova-plugin-contacts": 4,
-		"./cordova-plugin-contacts.js": 4,
-		"./cordova-plugin-device": 5,
-		"./cordova-plugin-device.js": 5,
-		"./cordova-plugin-facebook4": 6,
-		"./cordova-plugin-facebook4.js": 6,
-		"./cordova-plugin-file": 7,
-		"./cordova-plugin-file-downloader": 8,
-		"./cordova-plugin-file-downloader.js": 8,
-		"./cordova-plugin-file-opener2": 9,
-		"./cordova-plugin-file-opener2.js": 9,
-		"./cordova-plugin-file.js": 7,
-		"./cordova-plugin-geolocation": 10,
-		"./cordova-plugin-geolocation.js": 10,
-		"./cordova-plugin-googleplus": 11,
-		"./cordova-plugin-googleplus.js": 11,
-		"./cordova-plugin-inappbrowser": 12,
-		"./cordova-plugin-inappbrowser.js": 12,
-		"./cordova-plugin-local-notification": 13,
-		"./cordova-plugin-local-notification.js": 13,
-		"./cordova-plugin-progress-notification": 14,
-		"./cordova-plugin-progress-notification.js": 14,
-		"./cordova-plugin-request-location-accuracy": 15,
-		"./cordova-plugin-request-location-accuracy.js": 15,
-		"./cordova-plugin-sms": 16,
-		"./cordova-plugin-sms.js": 16,
-		"./cordova-plugin-spinner-dialog": 17,
-		"./cordova-plugin-spinner-dialog.js": 17,
-		"./cordova.plugins.diagnostic": 18,
-		"./cordova.plugins.diagnostic.js": 18
+		"./cordova-plugin-calendar": 2,
+		"./cordova-plugin-calendar.js": 2,
+		"./cordova-plugin-camera": 3,
+		"./cordova-plugin-camera.js": 3,
+		"./cordova-plugin-chrome-apps-sockets-tcp": 4,
+		"./cordova-plugin-chrome-apps-sockets-tcp.js": 4,
+		"./cordova-plugin-contacts": 5,
+		"./cordova-plugin-contacts.js": 5,
+		"./cordova-plugin-device": 6,
+		"./cordova-plugin-device.js": 6,
+		"./cordova-plugin-facebook4": 7,
+		"./cordova-plugin-facebook4.js": 7,
+		"./cordova-plugin-file": 8,
+		"./cordova-plugin-file-downloader": 9,
+		"./cordova-plugin-file-downloader.js": 9,
+		"./cordova-plugin-file-opener2": 10,
+		"./cordova-plugin-file-opener2.js": 10,
+		"./cordova-plugin-file.js": 8,
+		"./cordova-plugin-geolocation": 11,
+		"./cordova-plugin-geolocation.js": 11,
+		"./cordova-plugin-googleplus": 12,
+		"./cordova-plugin-googleplus.js": 12,
+		"./cordova-plugin-inappbrowser": 13,
+		"./cordova-plugin-inappbrowser.js": 13,
+		"./cordova-plugin-local-notification": 14,
+		"./cordova-plugin-local-notification.js": 14,
+		"./cordova-plugin-progress-notification": 15,
+		"./cordova-plugin-progress-notification.js": 15,
+		"./cordova-plugin-request-location-accuracy": 16,
+		"./cordova-plugin-request-location-accuracy.js": 16,
+		"./cordova-plugin-sms": 17,
+		"./cordova-plugin-sms.js": 17,
+		"./cordova-plugin-spinner-dialog": 18,
+		"./cordova-plugin-spinner-dialog.js": 18,
+		"./cordova.plugins.diagnostic": 19,
+		"./cordova.plugins.diagnostic.js": 19
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -142,17 +144,16 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
+	    if (typeof window.plugins === 'undefined' || typeof window.plugins.calendar === 'undefined') {
+	      return cb(false);
+	    }
 
-	        if (typeof navigator.camera === 'undefined') {
-	            return cb(false);
-	        }
+	    // pass through the googleplus object
+	    Vue.cordova.calendar = window.plugins.calendar;
 
-	        // pass through the camera object
-	        Vue.cordova.camera = navigator.camera;
-
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
@@ -162,17 +163,17 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof chrome.sockets.tcp === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof navigator.camera === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the object
-	        Vue.cordova.chromeSocketsTcp = chrome.sockets.tcp;
+	    // pass through the camera object
+	    Vue.cordova.camera = navigator.camera;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
@@ -182,21 +183,41 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof navigator.contacts === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof chrome.sockets.tcp === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the contacts object
-	        Vue.cordova.contacts = navigator.contacts;
+	    // pass through the object
+	    Vue.cordova.chromeSocketsTcp = chrome.sockets.tcp;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
+
+	    if (typeof navigator.contacts === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the contacts object
+	    Vue.cordova.contacts = navigator.contacts;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -231,27 +252,27 @@ module.exports =
 	};
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof window.facebookConnectPlugin === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof window.facebookConnectPlugin === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the facebookConnectPlugin object
-	        Vue.cordova.facebookConnectPlugin = window.facebookConnectPlugin;
+	    // pass through the facebookConnectPlugin object
+	    Vue.cordova.facebookConnectPlugin = window.facebookConnectPlugin;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -270,7 +291,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -289,7 +310,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -308,27 +329,27 @@ module.exports =
 	};
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof navigator.geolocation === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof navigator.geolocation === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the geolocation object
-	        Vue.cordova.geolocation = navigator.geolocation;
+	    // pass through the geolocation object
+	    Vue.cordova.geolocation = navigator.geolocation;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -347,27 +368,27 @@ module.exports =
 	};
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof cordova.InAppBrowser === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof cordova.InAppBrowser === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the InAppBrowser object
-	        Vue.cordova.InAppBrowser = cordova.InAppBrowser;
+	    // pass through the InAppBrowser object
+	    Vue.cordova.InAppBrowser = cordova.InAppBrowser;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -386,7 +407,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -405,7 +426,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -424,27 +445,27 @@ module.exports =
 	};
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
-	    document.addEventListener('deviceready', function () {
+	  document.addEventListener('deviceready', function () {
 
-	        if (typeof window.sms === 'undefined') {
-	            return cb(false);
-	        }
+	    if (typeof window.sms === 'undefined') {
+	      return cb(false);
+	    }
 
-	        // pass through the sms object
-	        Vue.cordova.sms = window.sms;
+	    // pass through the sms object
+	    Vue.cordova.sms = window.sms;
 
-	        return cb(true);
-	    }, false);
+	    return cb(true);
+	  }, false);
 	};
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -467,7 +488,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	'use strict';
