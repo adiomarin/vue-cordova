@@ -48,7 +48,7 @@ module.exports =
 	'use strict';
 
 	// list here all supported plugins
-	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification', 'cordova-plugin-googleplus', 'cordova-plugin-facebook4'];
+	var pluginsList = ['cordova-plugin-camera', 'cordova-plugin-device', 'cordova-plugin-geolocation', 'cordova-plugin-contacts', 'cordova-plugin-chrome-apps-sockets-tcp', 'cordova-plugin-sms', 'cordova-plugin-inappbrowser', 'cordova-plugin-spinner-dialog', 'cordova-plugin-file-downloader', 'cordova-plugin-file', 'cordova-plugin-progress-notification', 'cordova-plugin-file-opener2', 'cordova.plugins.diagnostic', 'cordova-plugin-request-location-accuracy', 'cordova-plugin-local-notification', 'cordova-plugin-googleplus', 'cordova-plugin-facebook4', 'cordova-plugin-secure-storage'];
 
 	exports.install = function (Vue, options) {
 
@@ -114,12 +114,14 @@ module.exports =
 		"./cordova-plugin-progress-notification.js": 14,
 		"./cordova-plugin-request-location-accuracy": 15,
 		"./cordova-plugin-request-location-accuracy.js": 15,
-		"./cordova-plugin-sms": 16,
-		"./cordova-plugin-sms.js": 16,
-		"./cordova-plugin-spinner-dialog": 17,
-		"./cordova-plugin-spinner-dialog.js": 17,
-		"./cordova.plugins.diagnostic": 18,
-		"./cordova.plugins.diagnostic.js": 18
+		"./cordova-plugin-secure-storage": 16,
+		"./cordova-plugin-secure-storage.js": 16,
+		"./cordova-plugin-sms": 17,
+		"./cordova-plugin-sms.js": 17,
+		"./cordova-plugin-spinner-dialog": 18,
+		"./cordova-plugin-spinner-dialog.js": 18,
+		"./cordova.plugins.diagnostic": 19,
+		"./cordova.plugins.diagnostic.js": 19
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -430,6 +432,25 @@ module.exports =
 	'use strict';
 
 	exports.install = function (Vue, options, cb) {
+	  document.addEventListener('deviceready', function () {
+	    if (typeof window.cordova === 'undefined' || typeof window.cordova.plugins === 'undefined' || window.cordova.plugins.SecureStorage === 'undefined') {
+	      return cb(false);
+	    }
+
+	    // pass through the SecureStorage object
+	    Vue.cordova.SecureStorage = window.cordova.plugins.SecureStorage;
+
+	    return cb(true);
+	  }, false);
+	};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	exports.install = function (Vue, options, cb) {
 	    document.addEventListener('deviceready', function () {
 
 	        if (typeof window.sms === 'undefined') {
@@ -444,7 +465,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -467,7 +488,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	'use strict';
