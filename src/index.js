@@ -17,7 +17,8 @@ const pluginsList = [
   'cordova-plugin-local-notification',
   'cordova-plugin-googleplus',
   'cordova-plugin-facebook4',
-  'cordova-plugin-secure-storage'
+  'cordova-plugin-secure-storage',
+  'cordova-plugin-calendar'
 ]
 
 exports.install = (Vue, options) => {
